@@ -11,12 +11,10 @@
 - clean: ['~', '~/.bash/custom' ,'~/.zsh/custom']
 
 - shell:
-    - [./scripts/installation/zim.sh, Installing zimfw]
+    - [./scripts/installation/zsh.sh, Installing zsh & zplug]
 
 - link:
-    ~/.zshrc        : zim/zshrc
-    ~/.zimrc        : zim/zimrc
-    ~/.zlogin       : zim/zlogin
+    ~/.zshrc        : zsh/zshrc
     ~/.bash/custom  : scripts/base # load base custom scripts that can be used for both bash and zsh env
     ~/.zsh/custom   : zsh/custom # load zsh custom scripts
 
