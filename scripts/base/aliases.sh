@@ -12,6 +12,19 @@
 # example: ping='ping -c 4'
 
 # common_alias {
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+  alias ls='ls --color=auto'
+  alias l='ls --color=auto'
+  alias grep='grep --color=auto'
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+  # Mac OSX
+  alias ls='ls -G'
+  alias l='ls -G'
+  export GREP_OPTIONS='--color=always'
+  export GREP_COLOR='1;35;40'
+fi
+alias find=fd
+
 alias chgrp='chgrp --preserve-root' # safety
 alias chmod='chmod --preserve-root' # safety
 alias chown='chown --preserve-root' # safety
