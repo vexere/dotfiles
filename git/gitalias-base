@@ -1,0 +1,78 @@
+# Author: <Long Luong> longbkit@gmail.com
+# Date: 2020/05/02
+# Co-founder & CTO @ VeXeRe
+
+# Avoid touching this file to keep it compatible for further updates
+alias gitaliasprefix="echo $GIT_ALIAS_PREFIX"
+# alias for git
+alias "$GIT_ALIAS_PREFIX"="git"
+
+# ------- log -------
+alias "$GIT_ALIAS_PREFIX"lg="git log"
+
+# git log oneline in format <short hash><committer name><tab><relative committer date><tab><commit message>
+alias "$GIT_ALIAS_PREFIX"l1="git log --format='%C(auto) %h %cn%x09%cr%x09%d%x09%s'"
+
+# show log using tig, easier to navigate
+# try follow hotkeys for tig: h for help & hotkeys, enter to show diff window, j/k to navigate in diff window,
+# up/down or J/Q to navigate in main window, u to stage / unstage selected file, ! to revert stage, 1 to stage selected line
+alias "$GIT_ALIAS_PREFIX"l="tig"
+
+# -------- status --------
+# view git status using `tig` (similar to open `tig` then press `s` key to goto status screen)
+# try to press q to quit, u to stage selected file or navigate in detail content and press 1 to stage line by line
+alias "$GIT_ALIAS_PREFIX"s="tig status"
+
+alias "$GIT_ALIAS_PREFIX"ss="git status"
+
+# ------------------------
+# git branch list order by committerdate desc
+alias "$GIT_ALIAS_PREFIX"bl="git branch --sort=-committerdate"
+alias "$GIT_ALIAS_PREFIX"cl="git clone"
+alias "$GIT_ALIAS_PREFIX"co="git checkout"
+alias "$GIT_ALIAS_PREFIX"cb="git checkout -b"
+alias "$GIT_ALIAS_PREFIX"f="git fetch"
+# download all remote branches, keep local branch untouch
+alias "$GIT_ALIAS_PREFIX"fa="git fetch --all"
+
+# -------- pull & preserve merges --------
+# gpp: recommend this over gpl, for more detail information please see git-integrated-alias-base
+# git pull --rebase --perserve-merges (or git pull --rebase=preserve)
+# to fetch remote and replay every commits in local repo without creating merge request, preserving
+# merge commits in local repo if any
+alias "$GIT_ALIAS_PREFIX"pp="git pp"
+# not exposing git pull --rebase as it might be not a good choice since it would flatten all commits of local repo
+# git pull = git fetch & git merge local commits. Unintentded merge requests in git log would be annoying so `git pull` (`gpl`)
+# is not preferred anyway. Try gpp instead when you want to pull remote branch
+
+alias "$GIT_ALIAS_PREFIX"pl="git pull"
+
+# -------- diff ----------
+# git diff using console (tui)
+alias "$GIT_ALIAS_PREFIX"d="git diff"
+# git diff using gui tool
+alias "$GIT_ALIAS_PREFIX"dg="git-cola"
+# default git diff for using gui tool
+alias "$GIT_ALIAS_PREFIX"d="gdg"
+
+# --------- commit ---------
+# git commit -m <message>
+alias "$GIT_ALIAS_PREFIX"cm="git cm"
+# git commit --amend: append current changes to last commit
+alias "$GIT_ALIAS_PREFIX"ca="git ca"
+# git commit --amend --message: append current changes to last commit & edit last commit message
+alias "$GIT_ALIAS_PREFIX"cam="git cam"
+
+# --------- add, commit & push
+alias "$GIT_ALIAS_PREFIX"a="git add ."
+
+git config --global alias.acp '!f() { git add -A && git commit -m "$@" && git push; }; f'
+git config --global alias.cp '!f() { git commit -m "$@" && git push; }; f'
+
+# git add, commit and push
+alias "$GIT_ALIAS_PREFIX"acp="git acp"
+# git 2.x and above behaves the same for `git add .` and `git add -A`  / `git add --all`
+
+# --------- push to origin same branch name  ----------
+# gps = git push same branch name (or git push simple)
+alias "$GIT_ALIAS_PREFIX"ps="git push origin HEAD"

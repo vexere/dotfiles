@@ -1,0 +1,10 @@
+# git {
+if _is_service_exist git; then
+    export GIT_ALIAS_PREFIX="g"
+
+    source ~/.dotfiles/.gitalias-base
+
+    # Customization goes here
+
+fi
+# }

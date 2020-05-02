@@ -10,10 +10,15 @@
         force: true
 
 - shell:
-    - ['apt-fast install --no-install-recommends -y tig', Installing tig]
+    - ['[[ "$OSTYPE" == "linux-gnu"* ]] && apt-fast install --no-install-recommends -y tig fi', Installing tig on Linux]
+    - ['[[ "$OSTYPE" == "darwin"* ]] && brew install tig', Installing tig on MacOS]
+    - [echo "source ~/.dotfiles/.gitalias" >> ~/.zshrc]
 
 - link:
     ~/.gitconfig : git/gitconfig
     ~/.gitignore : git/gitignore
     ~/.tigrc     : git/tigrc
-
+    ~/.dotfiles/.gitalias : git/gitalias
+    ~/.dotfiles/.gitalias-base : git/gitalias-base
+    ~/.dotfiles/.git-integrated-alias : git/git-integrated-alias
+    ~/.dotfiles/.git-integrated-alias-base : git/git-integrated-alias-base

@@ -107,12 +107,6 @@ if _is_service_exist "kubectl"; then
 fi
 # }
 
-# git {
-if _is_service_exist "git"; then
-    alias g="git"
-fi
-# }
-
 # nvm {
 # though we can use zsh-nvm plugin, it would slow down the terminal startup time
 # therefore only load it when needed is better for performance
