@@ -73,7 +73,33 @@ Support kubernete & a lot of useful tools to boost your devops performance.
 - k9s
 
 # Supported alias
+
+Alias is complicated, especially when it comes to different tastes of every single developer.
+Also when there are many tools, there are high chances for alias to be conflict with each other.
+That is why we have strived our best to provide opinionated alias while still allow customization.
+The true beauty is it not only allow to redefine alias but also allow to choose alias prefix at easy.
+
+Alias are defined by application.
+
+It is recommended to fork this project so all your preferences or customization could be managed properly.
+
+To encourage anyone to custom alias per their own preference, we have divided alias configuration into two files. Each application includes an `<application_name>alias` and `<application_name>alias-base` file. These files are linked to `~/.dotfiles/.<application_name>alias` and `~/.dotfiles/.<application_name>alias-base` and are included in `~/.zshrc` file when installing (linked to zsh/zshrc file in this repo).
+- `<application_name>alias`: do your customization here
+- `<application_name>alias-base`: should be maintained by our team, avoid to modify this file unless it is necessary. We also welcome any idea to improve scripts to be better day by day so don't hesitate to push a merge request to our repo.
+
+To add more alias or update, make change to `<application_name>alias` file and run `source ~/.zshrc`.
+
+For instance, alias for git could be found in `git` folder.
+`git` also supports alias for its commands so you will find another two files `git-integrated-alias` and `git-integrated-alias-base`.
+
+Some tips for alias:
+- Alias for `git` is `g`, to choose another such as `gt` try to change `GIT_ALIAS_PREFIX` in `gitalias` file to `gt`
+- To show current `git` alias prefix try command `gitaliasprefix`. Similar for all other tools, such as `kubectlaliasprefix`, `npmaliasprefix` ...
+
 ## git
+git alias is defined in git/gitconfig file.
+alias g=git (defined in aliases.sh)
+
 ## kubernetes
 ## docker
 ## extract / archive
@@ -99,10 +125,18 @@ Support kubernete & a lot of useful tools to boost your devops performance.
 - [ ] ruby alias
 - [ ] python alias
 - [ ] alias to work with db cli such as sql server, psql, mongo, redis, ...
-- [ ] Add installation for gcloud & configuration
+- [ ] Add installation for cloud toosl: gcloud, aws, s3, heroku, digital ocean & configuration
+## Add IDE settings
+- [ ] Visual Studio Code
+- [ ] Webstorm
+## Add more tools
+- [ ] Add fzf tool
 ## Allow customization
 - [ ] Add or modify your own alias
 - [ ] Customize zsh / vim / any application settings
+## alias conflict detection & prevention
+- [ ] Dry run through alias to see if there existed alias with the same name 
+- [ ] Allow add prefix to default alias to prevent conflict (for example kk instead of k for kubectl, gt instead of g for git, ...)
 ## Documentation
 - [ ] What do we need to do after installation?
 

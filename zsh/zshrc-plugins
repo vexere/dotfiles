@@ -1,0 +1,61 @@
+
+# zplug - plugin manager
+# =======================================
+source ~/.zplug/init.zsh
+
+zplug "zplug/zplug", hook-build:"zplug --self-manage"
+
+# Show the most recent command that share the same prefix with current command in grey color, 
+# press `right` button to complete the command
+zplug "zsh-users/zsh-autosuggestions"
+# zplug "djui/alias-tips" # remind you to use the alias https://github.com/djui/alias-tips # (not necessary) as we have fzf to list all the alias
+
+# install nvm with lazy loading to boost performance
+# for lazy load, first time calling to nvm, node, npm or global binaries in a session would be a little bit slower
+export NVM_LAZY_LOAD=true
+zplug "lukechilds/zsh-nvm"
+
+# zplug "wfxr/forgit" # (not necessary) a very cool fuzzy search implement for git command https://github.com/wfxr/forgit
+# zplug "chrissicool/zsh-bash", from:oh-my-zsh # does not work
+# agnoster theme lack of git indicators such as number of untracked or unstaged files
+#zplug "themes/agnoster", from:oh-my-zsh 
+#zplug "robobenklein/zinc" # another theme for zsh, promising but lack of documentation
+#try https://github.com/romkatv/powerlevel10k theme if you want really fancy prompt
+#But I found git-prompt is already great choice for prompt
+
+# Easier dirstack handling. (Type cd -<TAB> or cd +<TAB> to go to recently visited directories)
+# Useful functions: mkcd (make dir and change dir to newly created dir), cl (change dir and show contents), mkqrcode...
+zplug "woefe/wbase.zsh"
+# theme: git-prompt using the "multiline" layout
+zplug "woefe/git-prompt.zsh", use:"{git-prompt.zsh,examples/multiline.zsh}"
+
+# fzf: the ultimate fuzzy search tool that boostrap any list selection, pipe list selection such as search for files / folders
+zplug "junegunn/fzf", use:"shell/*.zsh"
+zplug "junegunn/fzf-bin", from:gh-r, as:command, rename-to:fzf
+# fd: faster, simpler usage and better than default find tool most of the time
+zplug "sharkdp/fd", from:gh-r, as:command, rename-to:fd
+
+# type a string, press up button, it will jump to the most recent command containing the inputted string
+zplug "zsh-users/zsh-history-substring-search"
+if zplug check zsh-users/zsh-history-substring-search; then
+  zmodload zsh/terminfo
+  bindkey "$terminfo[cuu1]" history-substring-search-up
+  bindkey "$terminfo[cud1]" history-substring-search-down
+fi
+
+#zplug "plugins/command-not-found", from:oh-my-zsh # does not work
+# zsh-syntax-highlighting must be loaded
+# after executing compinit command and sourcing other plugins
+# (If the defer tag is given 2 or above, run after compinit command)
+zplug "zsh-users/zsh-syntax-highlighting", defer:2 # need to load
+
+# Install plugins if there are plugins that have not been installed
+if ! zplug check --verbose; then
+  printf "Install? [y/N]: "
+  if read -q; then
+    echo; zplug install
+  fi
+fi
+
+# Then, source plugins and add commands to $PATH
+zplug load

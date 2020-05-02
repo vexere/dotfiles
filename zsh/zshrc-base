@@ -1,0 +1,58 @@
+#
+# User configuration sourced by interactive shells
+#
+
+# To hide user by default and show user info if logged into another account
+DEFAULT_USER=$USER
+
+# Load custom modules
+# =======================================
+function _source_bash {
+    # It is not easy to source bash file with bash_source using zsh properly. Check below stackoverflow link
+    # https://unix.stackexchange.com/questions/479092/how-can-i-source-a-bash-script-containing-bash-source-from-zsh-shell/837256
+    local bashSource="${1}"
+    . <(awk '{gsub(/\${BASH_SOURCE\[0\]}/, FILENAME); print}' $bashSource)
+}
+
+# Source bash custom config
+_source_bash ${ZDOTDIR:-${HOME}}/.bash/custom/index.sh
+# Source zsh custom config
+source ${ZDOTDIR:-${HOME}}/.zsh/custom/index.zsh
+# Source project specifi config
+local project_scripts=()
+while IFS= read -r -d $'\0' script; do
+    project_scripts+=("$script")
+done < <(find "$PROJECT_CUSTOM_SCRIPTS" -maxdepth 1 -type f -print0 2> /dev/null)
+
+if [[ ${#project_scripts[@]} -ne 0 ]]; then
+    for script in "${project_scripts[@]}"; do
+      source "$script"
+    done
+fi
+
+# Speed up zsh load time
+# =======================================
+zmodload zsh/zprof # uncomment this to profile zsh function https://htr3n.github.io/2018/07/faster-zsh/
+# zprof # run this after shell start to show profiling info
+# https://htr3n.github.io/2018/07/faster-zsh/#lazy-loading
+# https://gist.github.com/ctechols/ca1035271ad134841284
+# https://carlosbecker.com/posts/speeding-up-zsh
+
+autoload -Uz compinit
+# autoload -Uz nvm
+
+case $SYSTEM in
+  Darwin)
+    if [ $(date +'%j') != $(/usr/bin/stat -f '%Sm' -t '%j' ${ZDOTDIR:-$HOME}/.zcompdump) ]; then
+      compinit;
+    else
+      compinit -C;
+    fi
+    ;;
+  Linux)
+    # not yet match GNU & BSD stat
+  ;;
+esac
+
+# Hook for desk activation
+# [ -n "$DESK_ENV" ] && source "$DESK_ENV" || true

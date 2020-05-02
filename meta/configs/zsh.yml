@@ -14,7 +14,8 @@
     - [./scripts/installation/zsh.sh, Installing zsh & zplug]
 
 - link:
-    ~/.zshrc        : zsh/zshrc
+    ~/.zshrc             : zsh/zshrc
+    ~/.dotfiles/.zshrc-base : zsh/zshrc-base
+    ~/.dotfiles/.zshrc-plugins     : zsh/zshrc-plugins
     ~/.bash/custom  : scripts/base # load base custom scripts that can be used for both bash and zsh env
     ~/.zsh/custom   : zsh/custom # load zsh custom scripts
-
