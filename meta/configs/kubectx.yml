@@ -9,10 +9,9 @@
         relink: true
         force: true
 
-- shell:
-    - ["git -C ~/opt/kubectx pull || git clone --depth=1 --recursive https://github.com/ahmetb/kubectx ~/opt/kubectx", Installing kubectx]
-
 - link:
-    ~/bin/kubectx : ~/opt/kubectx/kubectx
-    ~/bin/kubens : ~/opt/kubectx/kubens
+    ~/bin/kubectx : kubectx/kubectx
+    ~/bin/kubens : kubectx/kubens
 
+# latest version of kubectx / kubens at the time being is not working with fzf
+# changed the directive #!/usr/bin/env bash to #!/usr/bin/env zsh worked (also change set -eou pipefail to set-eo pipefail as zsh does not support -u)

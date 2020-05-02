@@ -1,0 +1,136 @@
+# alias prefix = gg (google), not using g because git is more popular so git deserve the sorted alias g
+
+# gcloud {
+if _is_service_exist gcloud; then
+    XARGS="xargs -r"
+    if [[ `uname` = Darwin ]] then
+        # xargs -r is only supported in extended GNU, MacOS not support -r
+        # -r option is equivalent to no-run-if-empty
+        XARGS=xargs
+    fi
+
+    alias gcloudprefix="echo $GCLOUD_ALIAS_PREFIX"
+
+    function _gcloud_select_account() {
+        local account=$(gcloud auth list --format="value(account)" | fzf --header-lines=1 --query="$*" --select-1 -e | awk '{print $1}')
+        if [[ -n $account ]]; then
+            gcloud config set account $account
+            return $?
+        fi
+    }
+    # ggsa = GooGle Select Account
+    alias "$GCLOUD_ALIAS_PREFIX"sa=_gcloud_select_account
+
+    function _gcloud_activate_configuration() {
+        local config=$(gcloud config configurations list | fzf --header-lines=1 --query="$*" --select-1 -e | awk '{print $1}' )
+        if [[ -n $config ]]; then
+            gcloud config configurations activate $config
+            return $?
+        fi
+    }
+    # ggac = GooGle Activate Configuration
+    alias "$GCLOUD_ALIAS_PREFIX"ac=_gcloud_activate_configuration
+
+    function _gcloud_select_project() {
+        local proj=$(gcloud projects list | fzf --header-lines=1 --query="$*" --select-1 -e | awk '{print $1}')
+        if [[ -n $proj ]]; then
+            gcloud config set project $proj
+            return $?
+        fi
+    }
+    # ggsp = GooGle Select Project
+    alias "$GCLOUD_ALIAS_PREFIX"sp=_gcloud_select_project
+
+    _gcloud_project() { # get current project
+        gcloud config get-value project -q
+    }
+    # ggcp = GooGle Current Project
+    alias "$GCLOUD_ALIAS_PREFIX"cp
+
+    function _gcloud_select_cluster() {
+        local selection=`gcloud container clusters list | fzf --header-lines=1 --query="$*" --select-1 -e `
+        local cluster=`echo $selection | awk '{print $1}'`
+        local zone=`echo $selection | awk '{print $2}'`
+        if [[ -n $selection ]]; then
+            gcloud container clusters get-credentials $cluster --zone $zone
+            return $?
+        fi
+    }
+    # ggsc = GooGle Select (or Switch) Cluster
+    alias "$GCLOUD_ALIAS_PREFIX"sc=_gcloud_select_cluster
+
+    _gcloud_select_node_and_describe() { # list of gcloud compute instances and describe selected instance if possible
+        if _is_service_exist fzf; then
+            gcloud compute instances list | fzf | awk '{print $1}' | $XARGS gcloud compute instances describe
+        else
+            gcloud compute instances list && return
+        fi
+    }
+    # node = compute instance in GCP
+    # ggsnd = GooGle Select Node and Describe
+    alias "$GCLOUD_ALIAS_PREFIX"snd=_gcloud_select_node_and_describe
+
+    _gcloud_select_node() { # list of gcloud compute instances and describe selected instance if possible
+        if _is_service_exist fzf; then
+            local node = $(gcloud compute instances list | fzf | awk '{print $1}')
+            print -z "${node}"
+        else
+            gcloud compute instances list && return
+        fi
+    }
+    # node = compute instance in GCP
+    # ggsn = GooGle Select Node
+    alias "$GCLOUD_ALIAS_PREFIX"sn=_gcloud_select_node
+
+    _gcloud_sql() { # list of gcloud sql instances and describe selected instance if possible
+        if _is_service_exist fzf; then
+            local instance=$(gcloud sql instances list | fzf | awk '{print $1}')
+            if [ -n "${instance:+1}" ]; then
+                gcloud sql instances describe $instance
+            fi
+        else
+            gcloud sql instances list && return
+        fi
+    }
+    # ggsqld = Google cloud SQL select and Describe
+    alias "$GCLOUD_ALIAS_PREFIX"sqld=_gcloud_sql
+
+    # TODO: cloud sql port forward
+
+    _gcloud_service() { # list all services offered by google
+        if _is_service_exist fzf; then
+            gcloud services list --format='table(config.name,config.title,config.documentation.summary)' | fzf
+        else
+            gcloud services list --format='table(config.name,config.title,config.documentation.summary)'
+        fi
+    }
+    # ggsvc = GooGle get all Services
+    alias "$GCLOUD_ALIAS_PREFIX"svc="_gcloud_service"
+
+    function _fzf_gce_ssh() {
+    local select=$(gcloud compute instances list --filter="STATUS:RUNNING" | fzf --header-lines=1 --query="$*" --select-1 -e | awk '{print $1,$2}')
+    local host=$(echo $select | awk '{print $1}')
+    local zone=$(echo $select | awk '{print $2}')
+    gcloud compute ssh ${host} --internal-ip --zone ${zone}
+    }
+    # ggssh = Google select compute instance and SSH
+    alias "$GCLOUD_ALIAS_PREFIX"ssh=_fzf_gce_ssh
+
+#    function _fzf_kubectl_get_pod_with_node() {
+#    local node=$(kubectl get nodes -o wide | fzf --header-lines=1 --query="$*" --select-1 -e | awk '{print $1}')
+#    print -z  "kubectl get pods -o wide --all-namespaces | awk 'NR == 1 || /\\${node}/'" 
+#    }
+#    alias "$GCLOUD_ALIAS_PREFIX"gpn=_fzf_kubectl_get_pod_with_node
+
+    function _open_gcp_console() {
+        local proj=$(gcloud projects list | fzf --header-lines=1 --query="$*" --select-1 -e | awk '{print $1}')
+        if [[ -n $proj ]]; then
+            /usr/bin/open https://console.cloud.google.com/home/dashboard?project=${proj}
+            return $?
+        fi
+    }
+    # ggocc = GooGle open Cloud Console
+    alias "$GCLOUD_ALIAS_PREFIX"cc=_open_gcp_console
+
+    # TODO: add go to k8s container bash
+fi

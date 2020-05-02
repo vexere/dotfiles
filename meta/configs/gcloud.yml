@@ -6,4 +6,10 @@
 
 - shell:
     - [./scripts/installation/gcloud.sh, Installing gcloud]
-      # after installation run: gcloud init to setup gcloud environment (dotbot does not support interactive command)
+    - [echo "source ~/.dotfiles/.gcloudalias" >> ~/.zshrc]
+
+- link:
+    ~/.dotfiles/.gcloudalias : gcloud/gcloudalias
+    ~/.dotfiles/.gcloudalias-base : gcloud/gcloudalias-base
+
+# after installation run: gcloud init to setup gcloud environment (dotbot does not support interactive command)

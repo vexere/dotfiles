@@ -1,0 +1,9 @@
+# alias prefix = gg (google), not using g because git is more popular so git deserve the sorted alias g
+# However you are free to change gg prefix as per your preference.
+export GCLOUD_ALIAS_PREFIX="gg"
+
+source ~/.dotfiles/.gcloudalias-base
+
+# Customization goes here
+# You might consider to change alias as per your preference
+

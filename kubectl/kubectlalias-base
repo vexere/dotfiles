@@ -1,0 +1,143 @@
+# kubectl {
+if _is_service_exist kubectl; then
+    # Recommend to install k9s & kubectx
+    XARGS="xargs -r"
+    if [[ `uname` = Darwin ]] then
+        XARGS=xargs
+    fi
+
+    alias kubectlprefix="echo $KUBECTL_ALIAS_PREFIX"
+    alias "$KUBECTL_ALIAS_PREFIX"="kubectl"
+    alias "$KUBECTL_ALIAS_PREFIX"top="k9s"
+    alias "$KUBECTL_ALIAS_PREFIX"k="k9s"
+    alias "$KUBECTL_ALIAS_PREFIX"sc="kubectx" # switch kubernetes context (kubectl select/switch context - much faster than ggsc)
+    alias "$KUBECTL_ALIAS_PREFIX"sn="kubens" # switch namespace (kubectl select/switch namespace)
+    alias "$KUBECTL_ALIAS_PREFIX"cx="kubectx" # switch kubernetes context
+    alias "$KUBECTL_ALIAS_PREFIX"ns="kubens" # switch namespace
+
+    _kube_deployments() { # list of kubernetes deployment and describe selected item if possible
+        if _is_service_exist fzf; then
+            kubectl get deployment | fzf | awk '{print $1}' | $XARGS kubectl describe deployment
+        else
+            # kubectl get deployment --no-headers -o custom-columns=NAME:.metadata.name && return
+            kubectl get deployment && return
+        fi
+    }
+    alias "$KUBECTL_ALIAS_PREFIX"gd="_kube_deployments"
+
+    _kube_edit_deployments() { # list of kubernetes deployment and describe selected item if possible
+        if _is_service_exist fzf; then
+            kubectl get deployment | fzf | awk '{print $1}' | $XARGS kubectl edit deployment
+        else
+            # kubectl get deployment --no-headers -o custom-columns=NAME:.metadata.name && return
+            kubectl edit deployment && return
+        fi
+    }
+    alias "$KUBECTL_ALIAS_PREFIX"ed="_kube_edit_deployments"
+
+    _kube_ingress() { # list of kubernetes deployment and describe selected item if possible
+        if _is_service_exist fzf; then
+            kubectl get ingress | fzf | awk '{print $1}' | $XARGS kubectl describe ingress
+        else
+            # kubectl get ingress --no-headers -o custom-columns=NAME:.metadata.name && return
+            ubectl get ingress && return
+        fi
+    }
+    alias "$KUBECTL_ALIAS_PREFIX"gi="_kube_ingress"
+
+    _kube_edit_ingress() { # list of kubernetes deployment and describe selected item if possible
+        if _is_service_exist fzf; then
+            kubectl get ingress | fzf | awk '{print $1}' | $XARGS kubectl edit ingress
+        else
+            # kubectl get ingress --no-headers -o custom-columns=NAME:.metadata.name && return
+            ubectl get ingress && return
+        fi
+    }
+    alias "$KUBECTL_ALIAS_PREFIX"ei="_kube_edit_ingress"
+
+    _kube_nodes() { # list of kubernetes nodes and describe selected item if possible
+        if _is_service_exist fzf; then
+            kubectl get node | fzf | awk '{print $1}' | $XARGS kubectl describe node
+        else
+            # kubectl get node --no-headers -o custom-columns=NAME:.metadata.name && return
+            kubectl get node && return
+        fi
+    }
+    alias "$KUBECTL_ALIAS_PREFIX"gn="_kube_nodes"
+
+    _kube_services() { # list all kubernetes services and describe selected service if possible
+        if _is_service_exist fzf; then
+            kubectl get services | fzf | awk '{print $1}' | $XARGS kubectl describe service
+        else
+            # kubectl get services --no-headers -o custom-columns=NAME:.metadata.name && return
+            kubectl get services && return
+        fi
+    }
+    alias "$KUBECTL_ALIAS_PREFIX"gs="_kube_services"
+
+    _kube_edit_services() { # list all kubernetes services and describe selected service if possible
+        if _is_service_exist fzf; then
+            kubectl get services | fzf | awk '{print $1}' | $XARGS kubectl edit service
+        else
+            # kubectl get services --no-headers -o custom-columns=NAME:.metadata.name && return
+            kubectl get services && return
+        fi
+    }
+    alias "$KUBECTL_ALIAS_PREFIX"es="_kube_edit_services"
+
+    _kube_pods() { # list all kubernetes pods and describe selected pod if possible
+        if _is_service_exist fzf; then
+            kubectl get pods | fzf | awk '{print $1}' | $XARGS kubectl describe pod
+        else
+            # kubectl get pods --no-headers -o custom-columns=NAME:.metadata.name && return
+            kubectl get pods && return
+        fi
+    }
+    alias "$KUBECTL_ALIAS_PREFIX"gp="_kube_pods"
+
+    _kube_secrets() { # list all kubernetes services and describe selected service if possible
+        if _is_service_exist fzf; then
+            kubectl get secret | fzf | awk '{print $1}' | $XARGS kubectl describe secret
+        else
+            # kubectl get secret --no-headers -o custom-columns=NAME:.metadata.name && return
+            kubectl get secret && return
+        fi
+    }
+
+    alias "$KUBECTL_ALIAS_PREFIX"gscr="_kube_secrets"
+
+    _kube_edit_secrets() { # list all kubernetes services and describe selected service if possible
+        if _is_service_exist fzf; then
+            kubectl get secret | fzf | awk '{print $1}' | $XARGS kubectl edit secret
+        else
+            # kubectl edit secret --no-headers -o custom-columns=NAME:.metadata.name && return
+            kubectl edit secret && return
+        fi
+    }
+
+    alias "$KUBECTL_ALIAS_PREFIX"escr="_kube_edit_secrets"
+
+    _kube_configmaps() { # list all kubernetes services and describe selected service if possible
+        if _is_service_exist fzf; then
+            kubectl get configmap | fzf | awk '{print $1}' | $XARGS kubectl describe configmap
+        else
+            # kubectl get configmap --no-headers -o custom-columns=NAME:.metadata.name && return
+            kubectl get configmap && return
+        fi
+    }
+
+    alias "$KUBECTL_ALIAS_PREFIX"gcm="_kube_configmaps"
+
+    _kube_edit_configmaps() { # list all kubernetes services and describe selected service if possible
+        if _is_service_exist fzf; then
+            kubectl get configmap | fzf | awk '{print $1}' | $XARGS kubectl edit configmap
+        else
+            # kubectl edit configmap --no-headers -o custom-columns=NAME:.metadata.name && return
+            kubectl edit configmap && return
+        fi
+    }
+
+    alias "$KUBECTL_ALIAS_PREFIX"ecm="_kube_edit_configmaps"  
+
+fi
+# }

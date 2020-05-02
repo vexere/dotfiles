@@ -89,24 +89,6 @@ if _is_service_exist "lazydocker"; then
 fi
 # }
 
-# gcloud {
-if _is_service_exist "gcloud"; then
-    alias gcompute="_gcloud_compute"
-    alias gsql="_gcloud_sql"
-    alias gservice="_gcloud_service"
-fi
-if _is_service_exist "kubectl"; then
-    alias k="kubectl"
-    alias ks="k9s"
-    alias kcx="kubectx" # switch kubernetes context
-    alias kns="kubens" # switch namespace
-    alias kgd="_kube_deployments"
-    alias kgi="_kube_ingress"
-    alias kgn="_kube_nodes"
-    alias kgs="_kube_services"
-fi
-# }
-
 # nvm {
 # though we can use zsh-nvm plugin, it would slow down the terminal startup time
 # therefore only load it when needed is better for performance

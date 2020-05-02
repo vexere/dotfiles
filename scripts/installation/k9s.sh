@@ -25,8 +25,13 @@ cleanup() {
 
 main () {
     if ! _is_service_exist k9s; then
-        install
-        cleanup
+        if _is_service_exist brew; then
+            # Install using brew if exists
+            brew install derailed/k9s/k9s
+        else
+            install
+            cleanup
+        fi
     fi
 }
 

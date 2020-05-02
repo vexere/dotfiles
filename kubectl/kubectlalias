@@ -1,0 +1,7 @@
+export KUBECTL_ALIAS_PREFIX="k"
+
+source ~/.dotfiles/.kubectlalias-base
+
+# Customization goes here
+# You might consider to change alias as per your preference
+

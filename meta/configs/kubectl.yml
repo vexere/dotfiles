@@ -6,5 +6,11 @@
 
 - shell:
     - [./scripts/installation/kubectl.sh, Installing kubectl]
-      # after install kubectl, config need to be setup either via yml file or with gcloud command
+    - [echo "source ~/.dotfiles/.kubectlalias" >> ~/.zshrc]
 
+- link:
+    ~/.dotfiles/.kubectlalias : kubectl/kubectlalias
+    ~/.dotfiles/.kubectlalias-base : kubectl/kubectlalias-base
+
+ 
+# after install kubectl, config need to be setup either via yml file or with gcloud command
