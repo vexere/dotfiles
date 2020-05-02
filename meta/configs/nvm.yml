@@ -7,3 +7,12 @@
 - shell:
     - ["curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash", Installing nvm]
 
+# Drawback: 
+#   - This script does not install nvm to .zshrc but to .bashrc which is not zsh shell
+#   - Also if we put the initialization of nvm scripts to .zshrc it would slow down startup time
+# Fix: use either of below solutions
+#    - Best solution would be lazy loading of nvm or node related modules as stated here https://gist.github.com/fl0w/07ce79bd44788f647deab307c94d6922
+#    - Also an alias loadnvm is prepared for you, type command loadnvm anytime you need nvm
+#    - Another alternative way is install using zsh plugin zsh-nvm with lazy loading option. By default zshrc-plugins included in this 
+#    repos already includes zsh-nvm with lazy loading option
+#    See detail documentation here https://github.com/lukechilds/zsh-nvm#lazy-loading

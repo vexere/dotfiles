@@ -1,0 +1,14 @@
+# print prefix for npm alias
+alias npmprefix="echo $NPM_ALIAS_PREFIX"
+
+alias "$NPM_ALIAS_PREFIX"i="npm install"
+alias "$NPM_ALIAS_PREFIX"id="npm install --save-dev"
+alias "$NPM_ALIAS_PREFIX"ig="npm install -g"
+alias "$NPM_ALIAS_PREFIX"r="npm run-script"
+alias "$NPM_ALIAS_PREFIX"t="npm test"
+alias "$NPM_ALIAS_PREFIX"it="npm install && npm test"
+alias "$NPM_ALIAS_PREFIX"is="npm install && npm start"
+alias "$NPM_ALIAS_PREFIX"its="npm install && npm test && npm start"
+alias "$NPM_ALIAS_PREFIX"s="npm start"
+alias "$NPM_ALIAS_PREFIX"lk="npm link"
+alias "$NPM_ALIAS_PREFIX"w="npm run watch"

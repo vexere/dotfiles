@@ -6,3 +6,8 @@
 
 - shell:
     - [./scripts/installation/nodejs.sh, Installing NodeJs]
+    - [echo "source ~/.dotfiles/.npmalias" >> $HOME/.zshrc, Adding npm alias to ~/.zshrc]
+
+- link:
+    ~/.dotfiles/.npmalias : nodejs/npmalias
+    ~/.dotfiles/.npmalias-base : nodejs/npmalias-base

@@ -1,0 +1,5 @@
+export NPM_ALIAS_PREFIX="n"
+
+source ~/.dotfiles/.npmalias-base
+
+# Customization goes here
