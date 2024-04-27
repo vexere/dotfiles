@@ -30,7 +30,13 @@ A profile includes a set of tools, for instance terminal profile includes zsh, g
 
 For all available profile and its packages please see What's in it section below, or check meta/profiles folder.
 
-`./install-profile <profile> [<configs...>]` `Ex: ./install-profile terminal`
+`./install-profiles.sh <profile> [<configs...>]` `Ex: ./install-profile terminal`
+
+Typical installations:
+`./install-profiles.sh terminal`
+`./install-profiles.sh dev`
+`./install-profiles.sh home`
+`./install-profiles.sh kube-terminal`
 
 2. Install just one application & configuration at a time
 Install single package (install 1 module at a time: check meta/configs for supported package)
