@@ -27,13 +27,15 @@ zplug "lukechilds/zsh-nvm"
 # Useful functions: mkcd (make dir and change dir to newly created dir), cl (change dir and show contents), mkqrcode...
 zplug "woefe/wbase.zsh"
 # theme: git-prompt using the "multiline" layout
-zplug "woefe/git-prompt.zsh", use:"{git-prompt.zsh,examples/multiline.zsh}"
+#zplug "woefe/git-prompt.zsh", use:"{git-prompt.zsh,examples/multiline.zsh}"
+zplug "woefe/git-prompt.zsh"
 
 # fzf: the ultimate fuzzy search tool that boostrap any list selection, pipe list selection such as search for files / folders
-zplug "junegunn/fzf", use:"shell/*.zsh"
-zplug "junegunn/fzf-bin", from:gh-r, as:command, rename-to:fzf
+zplug "junegunn/fzf", from:github, as:command, use:'bin/*', hook-build:'./install --all'
+#zplug "junegunn/fzf", from:gh-r, as:command, hook-build:'./install --all'
+#zplug "junegunn/fzf", use:"shell/*.zsh", defer:2
 # fd: faster, simpler usage and better than default find tool most of the time
-zplug "sharkdp/fd", from:gh-r, as:command, rename-to:fd
+#zplug "sharkdp/fd", from:gh-r, as:command, rename-to:fd
 
 # type a string, press up button, it will jump to the most recent command containing the inputted string
 zplug "zsh-users/zsh-history-substring-search"

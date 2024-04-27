@@ -10,7 +10,9 @@
 # FUNCTION
 # =====================================================================================================================
 
-install () {
+install_docker_linux () {
+    echo "Installing Docker on Linux..."
+
     # Install packages to allow apt to use a repository over HTTPS
     apt-fast install --no-install-recommends -y \
         apt-transport-https                     \
@@ -38,9 +40,24 @@ install () {
     apt-fast install --no-install-recommends -y docker-ce docker-ce-cli containerd.io docker-compose
 }
 
+install_docker_macos() {
+    echo "Installing Docker on macOS..."
+    brew install --cask docker || { echo "Failed to install Docker on macOS"; return 0; }
+}
+
 main () {
     if ! _is_service_exist docker; then
-        install
+        case "$OSTYPE" in
+            "linux-gnu"*)
+                install_docker_linux
+                ;;
+            "darwin"*)
+                install_docker_macos
+                ;;
+            *)
+                echo "Unsupported operating system: $OSTYPE"
+                ;;
+        esac
     fi
 }
 

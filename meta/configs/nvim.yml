@@ -11,8 +11,7 @@
         force: true
 
 - shell:
-    - ['[[ "$OSTYPE" == "linux-gnu"* ]] && ./scripts/installation/nvim.sh', Installing neovim on Linux]
-    - ['[[ "$OSTYPE" == "darwin"* ]] && ./scripts/installation/nvim-macos.sh', Installing neovim on MacOS]
+    - [./scripts/installation/nvim.sh, Installing neovim]
 
 - link:
     ~/.config/nvim/init.vim       : nvim/init.vim

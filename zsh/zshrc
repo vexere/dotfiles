@@ -5,7 +5,16 @@ source ~/.dotfiles/.zshrc-plugins
 # Base script - avoid to touch this file to keep source code compatible for further update
 source ~/.dotfiles/.zshrc-base
 
+# Make sure locale is UTF8 to avoid fzf error
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+
+
 # Customization goes here to override default zshrc configuration
+export CLICOLOR=1
+export LSCOLORS=ExGxBxDxCxEgEdxbxgxcxd
+alias ll="ls -alG"
+DISABLE_CORRECTION="true"
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/longluong/.gcloud/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/longluong/.gcloud/google-cloud-sdk/path.zsh.inc'; fi
@@ -18,3 +27,9 @@ source ~/.dotfiles/.kubectlalias
 source ~/.dotfiles/.gitalias
 source ~/.dotfiles/.npmalias
 source ~/.dotfiles/.kubectlalias
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
