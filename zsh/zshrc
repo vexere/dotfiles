@@ -9,7 +9,6 @@ source ~/.dotfiles/.zshrc-base
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
-
 # Customization goes here to override default zshrc configuration
 export CLICOLOR=1
 export LSCOLORS=ExGxBxDxCxEgEdxbxgxcxd
@@ -17,16 +16,17 @@ alias ll="ls -alG"
 DISABLE_CORRECTION="true"
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/longluong/.gcloud/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/longluong/.gcloud/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f '~/.gcloud/google-cloud-sdk/path.zsh.inc' ]; then . '~/.gcloud/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/Users/longluong/.gcloud/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/longluong/.gcloud/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f '~/.gcloud/google-cloud-sdk/completion.zsh.inc' ]; then . '~/.gcloud/google-cloud-sdk/completion.zsh.inc'; fi
 source ~/.dotfiles/.gitalias
 source ~/.dotfiles/.gcloudalias
 source ~/.dotfiles/.kubectlalias
 source ~/.dotfiles/.gitalias
 source ~/.dotfiles/.npmalias
 source ~/.dotfiles/.kubectlalias
+source ~/.dotfiles/.vscodealias
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm

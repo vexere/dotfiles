@@ -1,0 +1,2 @@
+alias vscodealiasprefix="echo $VSCODE_ALIAS_PREFIX"
+alias "$VSCODE_ALIAS_PREFIX"="code ."

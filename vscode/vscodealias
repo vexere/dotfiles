@@ -1,0 +1,10 @@
+# vscode {
+if _is_service_exist code; then
+    export VSCODE_ALIAS_PREFIX="c"
+    
+    source ~/.dotfiles/.vscodealias-base
+
+    # Customization goes here
+
+fi
+# }
