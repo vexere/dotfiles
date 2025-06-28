@@ -5,7 +5,7 @@
         quiet : false
 
 - shell:
-    - [[[ "$OSTYPE" == "linux-gnu"* ]] && ./scripts/installation/vscode.sh, Installing VSCode on Linux]
+    - [./scripts/installation/vscode.sh]
     - [echo "source ~/.dotfiles/.vscodealias" >> ~/.zshrc]
 
 - link:
